@@ -1,6 +1,6 @@
 {
     "require": {
         "willdurand/geocoder": "*",
-        "mailgun/mailgun-php": "~0.7"
+        "mailgun/mailgun-php": "~1.1"
     }
 }

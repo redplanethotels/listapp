@@ -38,20 +38,6 @@ sudo pear install Mail_mime
 sudo a2enmod rewrite
 ```
 
-```PHP
-# Install Composer
-curl -sS https://getcomposer.org/installer | php
-
-# Add Mailgun as a dependency
-php composer.phar require mailgun/mailgun-php:~1.1
-``` 
-
-For shared hosts with SSH access, you might need to run this instead (contact 
-your shared host for assistance): 
-```
-php -d detect_unicode=Off -r "eval('?>'.file_get_contents('https://getcomposer.org/installer'));"
-```
-
 ### Configure your site in apache:
 ```
 cd /etc/apache2/sites-available/
@@ -104,6 +90,24 @@ Clone the repository:
 cd /var/www
 git clone git@github.com:newscloud/listapp.git
 ```
+
+### Install Composer and the Mailgun PHP SDK
+
+```PHP
+# Install Composer
+curl -sS https://getcomposer.org/installer | php
+
+# Add Mailgun as a dependency
+cd /var/www/listapp/app/protected/vendor
+php composer.phar require mailgun/mailgun-php:~1.1
+``` 
+
+For shared hosts with SSH access, you might need to run this instead (contact 
+your shared host for assistance): 
+```
+php -d detect_unicode=Off -r "eval('?>'.file_get_contents('https://getcomposer.org/installer'));"
+```
+
 ### Initialize the database:
 ```
 mysql -uroot -p
