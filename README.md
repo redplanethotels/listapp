@@ -1,10 +1,12 @@
 ListApp
 ===========
 
-Current Release: 1.1
+Current Release: 1.0
 
 Installation
 ------------
+
+### Choose a Server
 Use your own server or sign up at the RackSpace Cloud
 http://www.rackspace.com/cloud/
 Create a Cloud Server
@@ -13,12 +15,18 @@ RAM: 1 GB
 - save your password -
 
 When the image is built, you can ssh in at the IP address:
+```
 ssh root@xxx.xxx.xxx.xxx
+```
 
-Set your DNS:
+### Setup Your DNS:
+```
 listapp.yourdomain.com A record to xxx.xxx.xxx.xxx (IP address)
+```
 
 Run the following steps to install LAMP:
+
+```
 sudo apt-get update
 sudo apt-get install apache2
 sudo apt-get install php5 libapache2-mod-php5
@@ -27,6 +35,7 @@ sudo apt-get install php-pear
 sudo pear install Mail
 sudo pear install Mail_mime
 sudo a2enmod rewrite
+```PHP
 
 ```PHP
 # Install Composer
