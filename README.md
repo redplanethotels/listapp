@@ -24,6 +24,7 @@ ssh root@xxx.xxx.xxx.xxx
 listapp.yourdomain.com A record to xxx.xxx.xxx.xxx (IP address)
 ```
 
+### Configure Your Server
 Run the following steps to install LAMP:
 
 ```
@@ -51,7 +52,7 @@ your shared host for assistance):
 php -d detect_unicode=Off -r "eval('?>'.file_get_contents('https://getcomposer.org/installer'));"
 ```
 
-Configure your site in apache:
+### Configure your site in apache:
 ```
 cd /etc/apache2/sites-available/
 sudo nano listapp
@@ -68,26 +69,27 @@ sudo nano listapp
    </Directory>
 </VirtualHost>
 ```
+
 Enable the site
 sudo a2ensite listapp
 
-Install MySQL Server:
+### Install MySQL Server:
 ```
 sudo apt-get install mysql-server php5-mysal
 - provide a password for mysql: xxxxxxx
 ```
 
-Restart Apache:
+### Restart Apache:
 ```
 sudo service apache2 restart
 ```
-Install the code... you can use wget or clone it from github:
+### Install the Code
+
+You can use wget or clone it from [github](https://github.com/mailgun/listapp):
 ```
 sudo apt-get install git-core
 ssh-keygen -t rsa -C "you@yourdomain.com"
-```
 - enter the path for /home/root/.ssh/id_rsa
-```
 cd /root/.ssh
 more id_rsa.pub
 ```
@@ -98,10 +100,12 @@ Test connection to Github
 ssh -T git@github.com
 ```
 Clone the repository:
+```
 cd /var/www
 git clone git@github.com:newscloud/listapp.git
-
-Initialize the database:
+```
+### Initialize the database:
+```
 mysql -uroot -p
 create database listapp;
 
@@ -109,14 +113,19 @@ create database listapp;
 CREATE USER 'newuser'@'localhost' IDENTIFIED BY 'password';
 GRANT ALL PRIVILEGES ON * . * TO 'newuser'@'localhost';
 FLUSH PRIVILEGES;
-see also: https://www.digitalocean.com/community/articles/how-to-create-a-new-user-and-grant-permissions-in-mysql
+```
+[see also] (https://www.digitalocean.com/community/articles/how-to-create-a-new-user-and-grant-permissions-in-mysql)
+
+### Build Your Configuration File
 
 Build the configuration file for your application:
 - you'll need to sign up for Mailgun.com (at least free level) to get API keys
+```
 cd /var/www
 mkdir secure
 cd /var/www/secure
 sudo nano config-listapp.ini
+```
 - copy & paste in your settings using sample-config.ini (in this directory)
 - as an example
 - but use the mysql password and mailgun keys and your chosen domain
@@ -124,27 +133,34 @@ sudo nano config-listapp.ini
 - set superuser to the email address you want list messages sent from
 e.g. superuser = "jeff@newscloud.com"
 
-Run the database migrations:
+### Install the Database
+Run the database migrations (recommended) or import the .mysql file:
+```
 cd /var/www/listapp
 ./app/protected/yiic migrate up
+```
 Enter your admin user name, email and password
 - this is what you'll use to log in to the application
 
+### Try Out Your App
 Visit your web page:
+```
 http://listapp.yourdomain.com
-
+```
 Login with your user name and password
 
 You should be ready to go...
 
 Alert: If you run into a problem with directory permissions seeing the bootstrap directory e.g. CException Alias "bootstrap.widgets.TbNavbar" is invalid. Make sure it points to an existing directory or file. You can fix this by granting the Apache user access to all of your directories:
-> sudo chown www-data:www-data -R /var/www/listapp
-
+```
+sudo chown www-data:www-data -R /var/www/listapp
+```
 You can post issues on Github:
-https://github.com/mailgun/listapp/issues
+[Listapp](https://github.com/mailgun/listapp/issues)
 
 Or, as comments on the mailgun blog:
-http://blog.mailgun.com/post/turnkey-mailing-list-applet-using-the-mailgun-php-sdk
+[Tutorial](http://blog.mailgun.com/post/turnkey-mailing-list-applet-using-the-mailgun-php-sdk)
 
-Contact the author:
-http://jeffreifman.com/consulting
+### Contact the author
+[Jeff Reifman](http://jeffreifman.com/contact)
+[Available for Consulting](http://jeffreifman.com/consulting)
