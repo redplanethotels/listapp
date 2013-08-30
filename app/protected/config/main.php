@@ -79,11 +79,6 @@ $options = array(
     'format'=>array(
            'class'=>'ext.timeago.TimeagoFormatter',
        ),
-      's3'=>array(
-            'class'=>'ext.s3.ES3',
-            'aKey'=>$config['aws_s3_access'], 
-            'sKey'=>$config['aws_s3_secret'],
-        ),  
     'phpThumb'=>array(
         'class'=>'ext.EPhpThumb.EPhpThumb',
         'options'=>array(),
