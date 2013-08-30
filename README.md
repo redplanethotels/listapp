@@ -35,7 +35,7 @@ sudo apt-get install php-pear
 sudo pear install Mail
 sudo pear install Mail_mime
 sudo a2enmod rewrite
-```PHP
+```
 
 ```PHP
 # Install Composer
@@ -52,9 +52,11 @@ php -d detect_unicode=Off -r "eval('?>'.file_get_contents('https://getcomposer.o
 ```
 
 Configure your site in apache:
+```
 cd /etc/apache2/sites-available/
 sudo nano listapp
-
+```
+```
 <VirtualHost *:80>
         ServerName listapp.yourdomain.com
         DocumentRoot /var/www/listapp/app 
@@ -65,27 +67,36 @@ sudo nano listapp
       Allow from all
    </Directory>
 </VirtualHost>
-
+```
 Enable the site
 sudo a2ensite listapp
 
 Install MySQL Server:
+```
 sudo apt-get install mysql-server php5-mysal
 - provide a password for mysql: xxxxxxx
+```
 
 Restart Apache:
+```
 sudo service apache2 restart
-
+```
 Install the code... you can use wget or clone it from github:
+```
 sudo apt-get install git-core
 ssh-keygen -t rsa -C "you@yourdomain.com"
+```
 - enter the path for /home/root/.ssh/id_rsa
+```
 cd /root/.ssh
 more id_rsa.pub
+```
 - copy key to your forked github project settings deploy key
-Test connection to Github
-ssh -T git@github.com
 
+Test connection to Github
+```
+ssh -T git@github.com
+```
 Clone the repository:
 cd /var/www
 git clone git@github.com:newscloud/listapp.git
