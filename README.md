@@ -166,5 +166,4 @@ Or, as comments on the mailgun blog:
 [Tutorial](http://blog.mailgun.com/post/turnkey-mailing-list-applet-using-the-mailgun-php-sdk)
 
 ### Contact the author
-[Jeff Reifman](http://jeffreifman.com/contact)
-[Available for Consulting](http://jeffreifman.com/consulting)
+[Jeff Reifman](http://jeffreifman.com/contact) [Consulting](http://jeffreifman.com/consulting)
