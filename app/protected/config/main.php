@@ -1,14 +1,19 @@
 <?php
   $config = parse_ini_file(dirname(__FILE__) .'/../../../secure/config-listapp.ini', true);
-  if ($config['env']<>'live') 
+  if ($config['env'] == 'live') {
+    error_reporting(0);
+  }
+  if ($config['env']<>'live') {
     defined('YII_DEBUG') or define('YII_DEBUG',true);
-  require_once dirname(__FILE__) . '/../components/helpers.php'; 
+  }
+
+  require_once dirname(__FILE__) . '/../components/helpers.php';
   include dirname(__FILE__) . '/../vendor/autoload.php'; // composer autoload
 // This is the main Web application configuration. Any writable
 // CWebApplication properties can be configured here.
 #Yii::setPathOfAlias('bootstrap', dirname(FILE).'/../extensions/bootstrap');
 $options = array(
-  
+
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
 	'name'=>'ListApp',
 
@@ -37,7 +42,7 @@ $options = array(
   'appLayout' => 'application.views.layouts.main', // the layout used by the module.
   'viewDir' => null, // the path to view files to use with this module.
 ),
-'user'=>array(            
+'user'=>array(
             'hash' => 'md5', # encrypting method (php hash function)
             'sendActivationMail' => true, # send activation email
             'loginNotActiv' => false, # allow access for non-activated users
@@ -49,20 +54,20 @@ $options = array(
             'loginUrl' => array('/user/login'), // login form path
             'returnUrl' => array('/place/index'), //page after login
             'returnLogoutUrl' => array('/'), // page after logout
-        ),		
+        ),
         // hybrid auth module
         'yiiauth'=>array(
                 'userClass'=>'User', //the name of your Userclass
                 'config'=>array(
-                "base_url" => "http://yourdomain.com/hybridauth/", 
-                "providers" => array ( 
-                "Facebook" => array ( 
+                "base_url" => "http://yourdomain.com/hybridauth/",
+                "providers" => array (
+                "Facebook" => array (
                 "enabled" => true,
                 "keys"    => array ( "id" => "sample-id", "secret" => "sample-secret" ),
         // A comma-separated list of permissions you want to request from the user. See the Facebook docs for a full list of available permissions: http://developers.facebook.com/docs/reference/api/permissions.
-                 "scope"   => "email,user_about_me,user_website", 
+                 "scope"   => "email,user_about_me,user_website",
         // The display context to show the authentication page. Options are: page, popup, iframe, touch and wap. Read the Facebook docs for more details: http://developers.facebook.com/docs/reference/dialogs#display. Default: page
-                                        "display" => "popup" 
+                                        "display" => "popup"
                                 ),
                         ),
 
@@ -71,7 +76,7 @@ $options = array(
 
                         "debug_file" => "",
                 ),
-                        )	
+                        )
 	),
 
 	// application components
@@ -82,7 +87,7 @@ $options = array(
     'phpThumb'=>array(
         'class'=>'ext.EPhpThumb.EPhpThumb',
         'options'=>array(),
-    ),	  
+    ),
 		'session' => array(
                 'timeout' => 86400,
             ),
@@ -95,8 +100,8 @@ $options = array(
     'bootstrap' => array(
 	    'class' => 'ext.bootstrap.components.Bootstrap',
 	    'responsiveCss' => true,
-	),	
-		
+	),
+
   'authManager' => array(
     'class'=>'auth.components.CachedDbAuthManager',
      'cachingDuration'=>3600,
@@ -105,7 +110,7 @@ $options = array(
        'class' => 'auth.components.AuthBehavior',
         'admins'=>array('admin'), // users with full access
       ), ),
-      ),	
+      ),
 		'urlManager'=>array(
     			'urlFormat'=>'path',
     			'showScriptName'=>false,
@@ -113,7 +118,7 @@ $options = array(
     			'rules'=>array(
     				'<controller:\w+>/<id:\d+>'=>'<controller>/view',
     				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
-    				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',    			
+    				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
     				'request/verify/<id:\d+>/<hash:\w+>'=>'request/verify',	    				'/hybridauth' => '/hybridauth',
     				'' => 'site/index'
     			),
@@ -186,14 +191,14 @@ if ($config['env'] <> 'live') {
            ),
     			// If removed, Gii defaults to localhost only. Edit carefully to taste.
     			'ipFilters'=>array('127.0.0.1','::1'),
-    		);    	  
+    		);
 } else {
   $options['components']['log']=
 		array(
   			'class'=>'CLogRouter',
   			'routes'=>array(
           array('class'=>'CFileLogRoute','levels'=>'error, warning, info')
-    	  ));  
+    	  ));
 }
 return $options;
 
