@@ -112,18 +112,25 @@ class Mglist extends CActiveRecord
 	}
 
 	public function sync() {
+		$options = require($GLOBALS['config']);
+		$domain = $options['params']['mail_domain'];
 		// Sync all lists and their members
 		$this->output_str = '';
 		$yg = new Yiigun();
 		$my_lists = $yg->fetchLists();
+		$this->output_str.='<p>Synchronizing lists for: '.$domain.'<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
 		foreach ($my_lists->items as $item) {
-			$this->output_str.='<p>Synchronizing list: '.$item->name.'<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
-			// add to local db
-			$this->upsert($item);
-			$lookup_item=$this->findByAttributes(array('address'=>$item->address));
-			$this->syncListMembers($lookup_item['id'],true);
-			$this->output_str.='<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fetching members... <br />';
-			$this->output_str.='</p>';
+
+			if (strpos($domain, $item->address) !== FALSE) {
+				$this->output_str.='<p>Synchronizing list: '.$item->name.'<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+				// add to local db
+				$this->upsert($item);
+				$lookup_item=$this->findByAttributes(array('address'=>$item->address));
+				$this->syncListMembers($lookup_item['id'],true);
+				$this->output_str.='<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fetching members... <br />';
+				$this->output_str.='</p>';
+			}
+
 		}
 		return $this->output_str;
 	}
