@@ -121,7 +121,7 @@ class Mglist extends CActiveRecord
 		$this->output_str.='<p>Synchronizing lists for: '.$domain.'<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
 		foreach ($my_lists->items as $item) {
 
-			if (strpos($domain, $item->address) !== FALSE) {
+			if (strpos($item->address, $domain) !== FALSE) {
 				$this->output_str.='<p>Synchronizing list: '.$item->name.'<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
 				// add to local db
 				$this->upsert($item);
