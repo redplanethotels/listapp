@@ -156,6 +156,7 @@ $options = array(
 		'superuser'=>$config['superuser'],
 		'adminEmail'=>'admin@yourdomain.com',
 		'supportEmail'=>$config['support_email'],
+		'fromEmail'=>$config['from_email'],
 		'verify_secret'=>$config['verify_secret'],
 		'postsPerPage'=> 10,
 //		'salt'=>$config['salt'],

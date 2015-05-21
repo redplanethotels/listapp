@@ -94,7 +94,7 @@ class Yiigun extends CComponent
    public function sendVerificationRequest($model,$mglist) {
      // send an email with the verification link 
 		  $body="Please verify your subscription by clicking on the link below:\r\n".Yii::app()->getBaseUrl(true)."/request/verify/".$model->id."/".$model->hash;
-		  $this->send_simple_message($model->address,'Please verify your subscription to '.$mglist->name,$body,Yii::app()->params['support_email']);
+		  $this->send_simple_message($model->address,'Please verify your subscription to '.$mglist->name,$body,Yii::app()->params['superuser']);
    }
    
    function validate($email='') {
