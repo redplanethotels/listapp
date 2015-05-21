@@ -17,11 +17,12 @@ class Yiigun extends CComponent
       $from = Yii::app()->params['supportEmail'];
     $domain = Yii::app()->params['mail_domain'];
     // use only if supportEmail and from email are in mailgun account
-  //  $domain = substr(strrchr($from, "@"), 1);      
+  //  $domain = substr(strrchr($from, "@"), 1);
     $result = $this->mg->sendMessage($domain,array('from' => $from,
                                                'to' => $to,
                                                'subject' => $subject,
-                                               'text' => $body,
+                                               'text' => strip_tags($body),
+                                               'html' => $body
                                                ));
     return $result->http_response_body;    
   }	
