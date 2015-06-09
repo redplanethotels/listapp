@@ -11,6 +11,7 @@
  * @property string $campaign_id
  * @property string $tag
  * @property integer $status
+ * @property integer $delivery_time
  * @property string $sent_at
  * @property string $created_at
  * @property string $modified_at
@@ -47,14 +48,14 @@ class Message extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('subject', 'required'),
-			array('mglist_id, status', 'numerical', 'integerOnly'=>true),
+			array('mglist_id, status, delivery_time','numerical', 'integerOnly'=>true),
 			array('subject', 'length', 'max'=>255),
 			array('campaign_id', 'length', 'max'=>20),
 			array('tag', 'length', 'max'=>20),
 			array('body, sent_at, created_at', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, mglist_id, subject, body, campaign_id, tag, status, sent_at, created_at, modified_at', 'safe', 'on'=>'search'),
+			array('id, mglist_id, subject, body, campaign_id, tag, delivery_time, status, sent_at, created_at, modified_at', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -82,6 +83,7 @@ class Message extends CActiveRecord
 			'body' => 'Body',
 			'status' => 'Status',
 			'campaign_id' => 'Campaign',
+			'delivery_time' => 'Delivery Time',
 			'tag' => 'Tag',
 			'sent_at' => 'Sent At',
 			'created_at' => 'Created At',
@@ -106,6 +108,7 @@ class Message extends CActiveRecord
 		$criteria->compare('body',$this->body,true);
 		$criteria->compare('campaign_id',$this->campaign_id,true);
 		$criteria->compare('tag',$this->tag,true);
+		$criteria->compare('delivery_time',$this->delivery_time);
 		$criteria->compare('status',$this->status);
 		$criteria->compare('sent_at',$this->sent_at,true);
 		$criteria->compare('created_at',$this->created_at,true);

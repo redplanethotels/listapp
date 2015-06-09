@@ -61,7 +61,7 @@ class MessageController extends Controller
 		    Yii::app()->user->setFlash('messageSubmitted','Thank you, your message has been posted.'); 
 		    $lookup_item = Mglist::model()->findByPk($model->mglist_id);
 		    $yg = new Yiigun;
-		     $yg->send_simple_message($lookup_item['address'],$model->subject,$model->body,Yii::app()->params['fromEmail'], $model->campaign_id, $model->tag);
+		     $yg->send_simple_message($lookup_item['address'],$model->subject,$model->body,Yii::app()->params['fromEmail'], $model->campaign_id, $model->tag, $model->delivery_time);
 		    
 				$this->redirect('/mglist/index');
 			  

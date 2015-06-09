@@ -26,6 +26,9 @@
 
 	<?php echo $form->textAreaRow($model,'body',array('rows'=>6, 'cols'=>50, 'class'=>'span8')); ?>
 
+    <?php echo $form->textFieldRow($model,'delivery_time',array('maxlength'=>10, 'class'=>'span5')); ?>
+    <br />Delivery Time must be <a href="http://www.epochconverter.com" target="unixTimestampPage">unixtimestamp</a>. 0 mean send it now.
+    <br />Messages can be scheduled for a maximum of 3 days in the future.
 
 	<div class="form-actions">
 		<?php $this->widget('bootstrap.widgets.TbButton', array(
