@@ -12,18 +12,32 @@ class Yiigun extends CComponent
      $this->mg = new Mailgun(Yii::app()->params['mailgun']['api_key']);
   }
     
-  public function send_simple_message($to='',$subject='',$body='',$from='') {
-    if ($from == '') 
-      $from = Yii::app()->params['supportEmail'];
-    $domain = Yii::app()->params['mail_domain'];
+  public function send_simple_message($to='',$subject='',$body='',$from='', $campaignId = '', $tag = '') {
+    if ($from == '') {
+        $from = Yii::app()->params['supportEmail'];
+    }
+      $domain = Yii::app()->params['mail_domain'];
+
+      if ($campaignId == ''){
+          $campaignId = Yii::app()->params['defaultCampaignId'];
+      }
+
+      if ($tag == ''){
+          $tag = Yii::app()->params['defaultTag'];
+      }
+
+      $data = array(
+          'from'       => $from,
+          'to'         => $to,
+          'subject'    => $subject,
+          'text'       => strip_tags($body),
+          'html'       => $body,
+          'o:campaign' => $campaignId,
+          'o:tag'      => $tag,
+      );
     // use only if supportEmail and from email are in mailgun account
   //  $domain = substr(strrchr($from, "@"), 1);
-    $result = $this->mg->sendMessage($domain,array('from' => $from,
-                                               'to' => $to,
-                                               'subject' => $subject,
-                                               'text' => strip_tags($body),
-                                               'html' => $body
-                                               ));
+    $result = $this->mg->sendMessage($domain,$data);
     return $result->http_response_body;    
   }	
 
