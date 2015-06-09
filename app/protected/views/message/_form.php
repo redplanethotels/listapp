@@ -21,7 +21,11 @@
 
 	<?php echo $form->textFieldRow($model,'subject',array('class'=>'span5','maxlength'=>255)); ?>
 
+    <?php echo $form->textFieldRow($model,'campaign_id',array('maxlength'=>20, 'class'=>'span5')); ?>
+    <?php echo $form->textFieldRow($model,'tag',array('maxlength'=>20, 'class'=>'span5')); ?>
+
 	<?php echo $form->textAreaRow($model,'body',array('rows'=>6, 'cols'=>50, 'class'=>'span8')); ?>
+
 
 	<div class="form-actions">
 		<?php $this->widget('bootstrap.widgets.TbButton', array(

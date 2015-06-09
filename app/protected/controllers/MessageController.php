@@ -46,7 +46,7 @@ class MessageController extends Controller
 	
 	public function actionCreate($id = 0)
 	{
-		$model=new Message;
+        $model=new Message;
 		$model->mglist_id = $id;
 
 		// Uncomment the following line if AJAX validation is needed
@@ -55,13 +55,13 @@ class MessageController extends Controller
 		if(isset($_POST['Message']))
 		{
 			$model->attributes=$_POST['Message'];
-			$model->created_at =new CDbExpression('NOW()'); 
-      $model->modified_at =new CDbExpression('NOW()');          
+			$model->created_at =new CDbExpression('NOW()');
+            $model->modified_at =new CDbExpression('NOW()');
 			if($model->save()) {
 		    Yii::app()->user->setFlash('messageSubmitted','Thank you, your message has been posted.'); 
 		    $lookup_item = Mglist::model()->findByPk($model->mglist_id);
 		    $yg = new Yiigun;
-		     $yg->send_simple_message($lookup_item['address'],$model->subject,$model->body,Yii::app()->params['fromEmail']);
+		     $yg->send_simple_message($lookup_item['address'],$model->subject,$model->body,Yii::app()->params['fromEmail'], $model->campaign_id, $model->tag);
 		    
 				$this->redirect('/mglist/index');
 			  

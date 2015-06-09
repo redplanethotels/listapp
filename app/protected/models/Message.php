@@ -8,6 +8,8 @@
  * @property integer $mglist_id
  * @property string $subject
  * @property string $body
+ * @property string $campaign_id
+ * @property string $tag
  * @property integer $status
  * @property string $sent_at
  * @property string $created_at
@@ -47,10 +49,12 @@ class Message extends CActiveRecord
 			array('subject', 'required'),
 			array('mglist_id, status', 'numerical', 'integerOnly'=>true),
 			array('subject', 'length', 'max'=>255),
+			array('campaign_id', 'length', 'max'=>20),
+			array('tag', 'length', 'max'=>20),
 			array('body, sent_at, created_at', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, mglist_id, subject, body, status, sent_at, created_at, modified_at', 'safe', 'on'=>'search'),
+			array('id, mglist_id, subject, body, campaign_id, tag, status, sent_at, created_at, modified_at', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -77,6 +81,8 @@ class Message extends CActiveRecord
 			'subject' => 'Subject',
 			'body' => 'Body',
 			'status' => 'Status',
+			'campaign_id' => 'Campaign',
+			'tag' => 'Tag',
 			'sent_at' => 'Sent At',
 			'created_at' => 'Created At',
 			'modified_at' => 'Modified At',
@@ -98,6 +104,8 @@ class Message extends CActiveRecord
 		$criteria->compare('mglist_id',$this->mglist_id);
 		$criteria->compare('subject',$this->subject,true);
 		$criteria->compare('body',$this->body,true);
+		$criteria->compare('campaign_id',$this->campaign_id,true);
+		$criteria->compare('tag',$this->tag,true);
 		$criteria->compare('status',$this->status);
 		$criteria->compare('sent_at',$this->sent_at,true);
 		$criteria->compare('created_at',$this->created_at,true);
